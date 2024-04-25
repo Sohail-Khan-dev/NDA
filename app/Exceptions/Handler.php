@@ -27,4 +27,20 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    public function render($request, Throwable $exception)
+    {
+        $message = "Too many requests within a min";
+        $exception += $message;
+        return parent::render($request, $exception);
+    }
+    // public function render($request, Exception $exception)
+    // {
+    //     if ($exception instanceof ThrottleRequestsException) {
+    //         return response()->json([
+    //             'message' => 'Too many requests. Please try again later.',
+    //         ], 429);
+    //     }
+
+    //     return parent::render($request, $exception);
+    // }
 }
