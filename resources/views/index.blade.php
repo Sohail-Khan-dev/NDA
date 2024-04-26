@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>NDA</title>
-            <h1 class="bg-black text-white"> Welcome to the NDS </h1>
     </head>
+<body>
+    <h1 class="bg-black text-white"> Welcome to the NDS </h1>
+</body>
 
 </html>
