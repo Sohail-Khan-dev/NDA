@@ -56,10 +56,10 @@ class AuthController extends Controller
         return response()->json(['message' => 'Invalid credentials theek da credentials'], 401);
     }
 
-    public function CreateNewUser(Request $request){
-        dd('this is test ');
-        $msg = $this->register($request);
-        dump($msg);
-    }
+//    public function CreateNewUser(Request $request){
+//        dd('this is test ');
+//        $msg = $this->register($request);
+//        dump($msg);
+//    }
 
 }
