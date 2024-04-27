@@ -12,7 +12,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use \App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('index');
 });
+// routes/web.php
+
+
+Route::get('/', [AuthController::class, 'register'])->name('users.register');
+Route::post('/users', [AuthController::class, 'login'])->name('users.login');
+
