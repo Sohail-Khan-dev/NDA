@@ -18,42 +18,41 @@ class AuthController extends Controller
             'dob' => 'nullable|date',
             'id_number' => 'nullable|string',
             'password' => 'required|string|min:6',
-//            'confirm_password' => 'required|same:password',
         ]);
-
+        // If validation fails, return a 422 response with errors
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['status' => 422, 'message' => 'Validation errors', 'errors' => $validator->errors()], 422);
         }
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'dob' => $request->dob,
-            'id_number' => $request->id_number,
-            'password' => Hash::make($request->password),
-//            'confirm_password' => Hash::make($request->password),
-        ]);
-        if ($request->expectsJson()) {
-            return response()->json(['message' => 'User registered successfully', 'user' => $user]);
-        } else {
-            $users = User::all();
-            return redirect('/')->with('success', 'User registered successfully','users',$users);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'dob' => $request->dob,
+                'id_number' => $request->id_number,
+                'password' => Hash::make($request->password),
+            ]);
+            return response()->json(['status' => 200, 'message' => 'User registered successfully', 'user' => $user], 200);
+        }catch (\Exception $e) {
+            // Return a 500 response if there's a server error
+            return response()->json(['status' => 500, 'message' => 'Internal Server Error', 'error' => $e->getMessage()], 500);
         }
-//        return response()->json(['message' => 'User registered successfully', 'user' => $user]);
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-//        return $request ; //  response()->json(['credentials: ' => $request->all()]);
         if (auth()->attempt($credentials)) {
             $user = auth()->user();
             $token = $user->createToken('authToken')->plainTextToken;
 
-            return response()->json(['message' => 'Login successful', 'user' => $user, 'token' => $token]);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Login successful',
+                'user' => $user, 'token' => $token]);
         }
 
-        return response()->json(['message' => 'Invalid credentials theek da credentials'], 401);
+        return response()->json(['status'=>401 ,'message' => 'Invalid credentials theek da credentials'], 401);
     }
 
 
