@@ -42,17 +42,22 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        if (auth()->attempt($credentials)) {
-            $user = auth()->user();
-            $token = $user->createToken('authToken')->plainTextToken;
+        try {
+            if (auth()->attempt($credentials)) {
+                $user = auth()->user();
+                $token = $user->createToken('authToken')->plainTextToken;
 
-            return response()->json([
-                'status' => 200,
-                'message' => 'Login successful',
-                'user' => $user, 'token' => $token]);
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Login successful',
+                    'user' => $user, 'token' => $token]);
+            }
+
+            return response()->json(['status'=>401 ,'message' => 'Invalid credentials theek da credentials'], 401);
+        }catch (\Exception $e)
+        {
+            return response()->json(['status' => 500, 'message' => 'Internal Server Error', 'error' => $e->getMessage()], 500);
         }
-
-        return response()->json(['status'=>401 ,'message' => 'Invalid credentials theek da credentials'], 401);
     }
 
 
