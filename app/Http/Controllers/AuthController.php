@@ -41,6 +41,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // Validate input
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 422, 'message' => 'Validation errors', 'errors' => $validator->errors()], 422);
+        }
+
         $credentials = $request->only('email', 'password');
         try {
             if (auth()->attempt($credentials)) {
@@ -52,7 +62,6 @@ class AuthController extends Controller
                     'message' => 'Login successful',
                     'user' => $user, 'token' => $token]);
             }
-
             return response()->json(['status'=>401 ,'message' => 'Invalid credentials theek da credentials'], 401);
         }catch (\Exception $e)
         {
