@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <title>NDA</title>
-    </head>
-<body>
+@extends('layouts.app')
+@section('content')
+@auth
+    <p>Authenticated</p>
+@else
+    <p>Guest</p>
+@endauth
+
 <div class="bg-gray-900  p-6">
     <h1 class="text-white text-center text-2xl"> Welcome to the NDS </h1>
 </div>
 <div class="flex flex-row w-full bg-gray-100 gap-3">
-    <div class="container w-1/3 mx-auto mt-8 shadow bg-gray-200 mx-3">
+    {{-- <div class="container w-1/3 mx-auto mt-8 shadow bg-gray-200 mx-3">
         <div class="max-w bg-white p-6 rounded shadow my-2">
             <h2 class="text-2xl font-bold mb-4 bg-gray-700 text-white text-center py-4">Create User</h2>
             <form method="POST" action="{{ url('/api/register') }}">
@@ -58,13 +57,13 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
     <div class="container w-2/3 mx-auto mt-8 shadow bg-gray-200 mr-3">
         <div class="max-w bg-white p-6 rounded shadow my-2">
             <h2 class="text-2xl font-bold mb-4 bg-gray-700 text-white text-center py-4">All User</h2>
             @if($users)
                 <div class="container mx-auto mt-8">
-                    <h2 class="text-2xl font-bold mb-4 bg-gray-700 text-white text-center py-4">Users List</h2>
+                    {{-- <h2 class="text-2xl font-bold mb-4 bg-gray-700 text-white text-center py-4">Users List</h2> --}}
                     <table class="w-full">
                         <thead>
                         <tr>
@@ -97,6 +96,4 @@
         </div>
     </div>
 </div>
-</body>
-
-</html>
+@endsection

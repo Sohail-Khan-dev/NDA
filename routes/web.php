@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    $users = \App\Models\User::all();
-    return view('index',compact('users'));
-});
-//Route::get('/api/register',[AuthController::class,'CreateNewUser']);
+Route::get('send-email',[EmailController::class,"sendEmail"])->name('send-email');
 
+
+Auth::routes();
+Route::get('/',[AuthController::class,'index'] )->middleware('verified');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
