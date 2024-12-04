@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('dob')->nullable();
             $table->string('id_number')->nullable();
             $table->string('password');
-            $table->string('confirm_password');
+            $table->string('confirm_password')->nullable();
+            $table->string('one_time_password');
+            $table->boolean('is_verified')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

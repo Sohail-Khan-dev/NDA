@@ -59,12 +59,11 @@
         </div>
     </div> --}}
     <div class="container w-2/3 mx-auto mt-8 shadow bg-gray-200 mr-3">
-        <div class="max-w bg-white p-6 rounded shadow my-2">
+        <div class="max-w bg-white p-6 rounded shadow my-2 ">
             <h2 class="text-2xl font-bold mb-4 bg-gray-700 text-white text-center py-4">All User</h2>
             @if($users)
-                <div class="container mx-auto mt-8">
-                    {{-- <h2 class="text-2xl font-bold mb-4 bg-gray-700 text-white text-center py-4">Users List</h2> --}}
-                    <table class="w-full">
+                <div class="container mx-auto mt-8 overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
                         <thead>
                         <tr>
                             <th class="border px-4 py-2">ID</th>

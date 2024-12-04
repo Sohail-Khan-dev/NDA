@@ -24,7 +24,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'dob',
         'id_number',
         'password',
-        'confirm_password'
+        'confirm_password',
+        'one_time_password'
     ];
 
     /**
