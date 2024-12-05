@@ -15,7 +15,7 @@ use App\Http\Controllers\EmailController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 Route::get('send-email',[EmailController::class,"sendEmail"])->name('send-email');
 Route::get('get-otp',[EmailController::class,"generateOTP"])->name("generate-Otp"); // this is only for testing .    
@@ -25,7 +25,7 @@ Route::get('otp', function(){
     // dd("this is ");
     return view('auth.otp');
 });
-Auth::routes();
+// Auth::routes();
 Route::get('/',[AuthController::class,'index'] )->middleware('verified')->name('home');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
