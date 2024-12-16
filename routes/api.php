@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']); // this will limit user request upto 5 in a minute
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/users', [AuthController::class, 'fetchAllUsers']);
+Route::post('/verify', [AuthController::class, 'verifyOTP']);
